@@ -10,8 +10,8 @@ HiJson使用java开发，基于gson包，格式化json字符并以树的形式�
 
 ## Requirement
 
-* NetBeans IDE 8
-* JDK 1.7 or higher
+* Gradle5+
+* JDK 1.8 or higher
 
 
 
@@ -20,6 +20,6 @@ HiJson使用java开发，基于gson包，格式化json字符并以树的形式�
 
 License: [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)
 
-Author: [藏言(Cangyan)](mailto:beetle082@163.com)
+Author: [藏言(Cangyan)](mailto:beetle082@163.com)[廖金龙](mailto:jinlongliao@foxmail.com)
 
-Website: [HiJson](https://code.google.com/p/json-view/)
+Website: [HiJson](https://github.com/JinlongLiao/HiJson)
