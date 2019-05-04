@@ -1,0 +1,68 @@
+plugins {
+    id 'java'
+    id 'edu.sc.seis.launch4j' version '2.4.5'
+    id 'com.github.johnrengelman.shadow' version '5.0.0'
+}
+group 'com.liaojl'
+version '0.1'
+sourceCompatibility = 1.8
+compileJava.options.encoding = 'UTF-8'
+sourceSets {
+    main {
+        resources {
+            srcDir 'src/main/resources'
+            srcDir 'src/main/java'
+        }
+    }
+}
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    compile fileTree(dir: 'src/lib', include: '*.jar')
+    // https://mvnrepository.com/artifact/commons-lang/commons-lang
+    compile group: 'commons-lang', name: 'commons-lang', version: '2.6'
+// https://mvnrepository.com/artifact/com.google.code.gson/gson
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.8.5'
+// https://mvnrepository.com/artifact/com.alibaba/fastjson
+    compile group: 'com.alibaba', name: 'fastjson', version: '1.2.58'
+// https://mvnrepository.com/artifact/org.jdesktop/appframework
+    compile group: 'org.jdesktop', name: 'appframework', version: '1.0.3'
+
+}
+
+apply plugin: 'application' // 引入java插件，
+mainClassName = 'hi.chyl.json.MainApp'
+
+startScripts {
+    // The option -XX:+UseG1GC is only relevant for Java 8. Starting with Java 9 G1GC is already the default GC
+    defaultJvmOpts = ['-Xms128M', '-Xmx4g', '-Dawt.useSystemAAFontSettings=lcd', '-Dswing.aatext=true', '-XX:+UseG1GC']
+    doLast {
+        def str = windowsScript.text
+        str = str.replaceAll('java.exe', 'javaw.exe')
+        str = str.replaceAll('"%JAVA_EXE%" %DEFAULT_JVM_OPTS%',
+                'start "HiJson" /B "%JAVA_EXE%" %DEFAULT_JVM_OPTS%')
+        windowsScript.text = str
+    }
+}
+
+launch4j {
+    version = '2.3.2'
+    mainClassName = mainClassName
+    copyConfigurable = project.tasks.shadowJar.outputs.files
+    jar = "lib/${project.tasks.shadowJar.archiveName}"
+    icon = "${projectDir}/src/main/java/resources/resources/json.ico"
+    outfile = "HiJson-${version}.exe"
+    copyright = 'liajl'
+    windowTitle = "HiJson"
+    companyName = "HiJson"
+    jreMinVersion = '1.8.0'
+    jvmOptions = ['-Dawt.useSystemAAFontSettings=lcd', '-Dswing.aatext=true', '-XX:+UseG1GC']
+    jreRuntimeBits = "64"
+    initialHeapPercent = 5
+    maxHeapSize = 4096
+    maxHeapPercent = 70
+}
+
