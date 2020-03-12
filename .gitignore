@@ -1,3 +1,10 @@
  /build/
 /dist/
 /.idea
+/.gradle/
+/gradle/
+/gradlew
+/gradlew.bat
+将删除 gradle/
+将删除 gradlew
+将删除 gradlew.bat
